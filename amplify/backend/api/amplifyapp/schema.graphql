@@ -1,0 +1,24 @@
+type CertificationReception @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  user_id: Int
+  application_type: Int
+  applied_at: AWSDateTime
+  file_path: String
+  userdataID: ID! @index(name: "byUserData")
+  certification_reception_id: Int
+}
+
+type UserData @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  user_status: Int
+  user_name: String
+  CertificationReceptions: [CertificationReception] @hasMany(indexName: "byUserData", fields: ["id"])
+  user_id: Int
+}
+
+type Todo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+}
+ 
